@@ -5,7 +5,12 @@ import (
 	"time"
 )
 
-func sum(arr []int64) int64 {
+type Impl interface {
+	Load(any) (any, bool)
+	Store(any, any)
+}
+
+func Sum(arr []int64) int64 {
 	var s int64
 	for _, v := range arr {
 		s += v
@@ -13,15 +18,8 @@ func sum(arr []int64) int64 {
 	return s
 }
 
-// Placeholder: More advanced fairness metrics can be added
-func calculateFairness(opTimes []int64, numRoutines int) []int {
-	// Count how many operations per routine (if you track that separately)
-	// Here we simply return percentiles or dummy data
-	return []int{25, 50, 75} // Replace with actual fairness calculations
-}
-
-// Approximate CPU time for current process
-func cpuTime() time.Duration {
+// Gets CPU time consumed
+func CPUTime() time.Duration {
 	var ru syscall.Rusage
 	syscall.Getrusage(syscall.RUSAGE_SELF, &ru)
 	return time.Duration(ru.Utime.Sec)*time.Second +
