@@ -8,6 +8,7 @@ const (
 	LockFree = iota
 	RWMut
 	Atomic
+	PartialLockfree
 )
 
 type OperationType int
@@ -25,14 +26,15 @@ var OpTypeMap = map[OperationType]string{
 }
 
 var MapTypeString = map[MapType]string{
-	LockFree: "LockFree",
-	RWMut:    "RWMutex",
-	Atomic:   "Atomic",
+	LockFree:        "LockFree",
+	RWMut:           "RWMutex",
+	Atomic:          "Atomic",
+	PartialLockfree: "Partial Lockfree",
 }
 
 type MetricResult struct {
-	OpType     OperationType
-	MapImpl    MapType
+	OpType     string
+	MapImpl    string
 	Scenario   string
 	Throughput float64
 	Latency    float64
@@ -43,8 +45,8 @@ type MetricResult struct {
 
 func (m *MetricResult) Print() {
 	fmt.Println("=== Benchmark Results ===")
-	fmt.Printf("Operation Type     : %s\n", OpTypeMap[m.OpType])
-	fmt.Printf("Map Implementation : %s\n", MapTypeString[m.MapImpl])
+	fmt.Printf("Operation Type     : %s\n", m.OpType)
+	fmt.Printf("Map Implementation : %s\n", m.MapImpl)
 	fmt.Printf("Scenario           : %s\n", m.Scenario)
 	fmt.Printf("Throughput         : %.2f ops/sec\n", m.Throughput)
 	fmt.Printf("Avg Latency        : %.2f µs\n", m.Latency/1000) // assuming latency is in nanoseconds

@@ -76,8 +76,8 @@ func Simulate(m Impl, numRoutines int, opsPerRoutine int, OpType benchmark.Opera
 	gcPauses := memAfter.NumGC - memBefore.NumGC
 
 	return &benchmark.MetricResult{
-		OpType:     OpType,
-		MapImpl:    mapImpl,
+		OpType:     benchmark.OpTypeMap[OpType],
+		MapImpl:    benchmark.MapTypeString[mapImpl],
 		Scenario:   fmt.Sprintf("%d routines × %d ops", numRoutines, opsPerRoutine),
 		Throughput: throughput,
 		Latency:    avgLatency,

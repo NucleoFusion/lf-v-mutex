@@ -6,8 +6,8 @@ import (
 )
 
 type AtomicEntry struct {
-	key   any
-	value any
+	key   string
+	value int
 }
 
 type AtomicMap struct {
@@ -18,15 +18,13 @@ func NewAtomic() *AtomicMap {
 	return &AtomicMap{}
 }
 
-func HashKey(k any) uint32 {
+func HashKey(k string) uint32 {
 	h := fnv.New32a()
-	if str, ok := k.(string); ok { // Will always happen, to accomodate sync.Map
-		h.Write([]byte(str))
-	}
+	h.Write([]byte(k))
 	return h.Sum32() % 262_144
 }
 
-func (m *AtomicMap) Load(key any) (any, bool) {
+func (m *AtomicMap) Load(key string) (int, bool) {
 	idx := HashKey(key)
 	entryPtr := m.buckets[idx].Load()
 
@@ -41,7 +39,7 @@ func (m *AtomicMap) Load(key any) (any, bool) {
 	return 0, false // Poor hash collision handling
 }
 
-func (m *AtomicMap) Store(key any, val any) {
+func (m *AtomicMap) Store(key string, val int) {
 	idx := HashKey(key)
 	entry := &AtomicEntry{key: key, value: val}
 	m.buckets[idx].Store(entry)

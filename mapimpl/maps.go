@@ -6,8 +6,8 @@ import (
 )
 
 type Impl interface {
-	Load(any) (any, bool)
-	Store(any, any)
+	Load(string) (int, bool)
+	Store(string, int)
 }
 
 func Sum(arr []int64) int64 {
