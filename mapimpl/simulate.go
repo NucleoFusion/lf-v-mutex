@@ -72,9 +72,6 @@ func Simulate(m Impl, numRoutines int, opsPerRoutine int, OpType benchmark.Opera
 	runtime.ReadMemStats(&memAfter)
 	cpuUsage := CPUTime() - cpuStart
 
-	// GC pauses
-	gcPauses := memAfter.NumGC - memBefore.NumGC
-
 	return &benchmark.MetricResult{
 		OpType:     benchmark.OpTypeMap[OpType],
 		MapImpl:    benchmark.MapTypeString[mapImpl],
@@ -83,6 +80,5 @@ func Simulate(m Impl, numRoutines int, opsPerRoutine int, OpType benchmark.Opera
 		Latency:    avgLatency,
 		Memory:     memAfter.Alloc - memBefore.Alloc,
 		CPUUtil:    cpuUsage.Seconds(),
-		GCPauses:   int64(gcPauses),
 	}
 }

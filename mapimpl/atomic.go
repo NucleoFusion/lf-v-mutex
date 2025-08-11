@@ -11,7 +11,7 @@ type AtomicEntry struct {
 }
 
 type AtomicMap struct {
-	buckets [262_144]atomic.Pointer[AtomicEntry] // 2^18
+	buckets atomic.Pointer[[262_144]*AtomicEntry] // 2^18
 }
 
 func NewAtomic() *AtomicMap {
@@ -26,7 +26,7 @@ func HashKey(k string) uint32 {
 
 func (m *AtomicMap) Load(key string) (int, bool) {
 	idx := HashKey(key)
-	entryPtr := m.buckets[idx].Load()
+	entryPtr := m.buckets.Load()[idx]
 
 	// Not found
 	if entryPtr == nil {
@@ -40,7 +40,13 @@ func (m *AtomicMap) Load(key string) (int, bool) {
 }
 
 func (m *AtomicMap) Store(key string, val int) {
-	idx := HashKey(key)
-	entry := &AtomicEntry{key: key, value: val}
-	m.buckets[idx].Store(entry)
+	for {
+		oldptr := m.buckets.Load()
+		newptr := *oldptr
+		newptr[HashKey(key)] = &AtomicEntry{key: key, value: val}
+		if m.buckets.CompareAndSwap(oldptr, &newptr) {
+			return
+		}
+		// Else continue
+	}
 }

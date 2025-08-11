@@ -33,14 +33,14 @@ var MapTypeString = map[MapType]string{
 }
 
 type MetricResult struct {
-	OpType     string
-	MapImpl    string
-	Scenario   string
-	Throughput float64
-	Latency    float64
-	Memory     uint64
-	CPUUtil    float64
-	GCPauses   int64
+	OpType      string
+	MapImpl     string
+	Scenario    string
+	Throughput  float64
+	Latency     float64
+	Memory      uint64
+	CPUUtil     float64
+	SuccessRate float64
 }
 
 func (m *MetricResult) Print() {
@@ -52,6 +52,5 @@ func (m *MetricResult) Print() {
 	fmt.Printf("Avg Latency        : %.2f µs\n", m.Latency/1000) // assuming latency is in nanoseconds
 	fmt.Printf("Memory Used        : %d mb\n", m.Memory/(1024*1024))
 	fmt.Printf("CPU Utilization    : %.2fs\n", m.CPUUtil)
-	fmt.Printf("GC Pauses          : %d\n", m.GCPauses)
 	fmt.Println("=========================")
 }
