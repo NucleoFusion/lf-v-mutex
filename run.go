@@ -21,9 +21,9 @@ func RunLockfree(n int) []Result {
 	for i := 0; i < n; i++ {
 		m := skipmap.New[string, int]()
 		r := Result{
-			Balanced:   mapimpl.Simulate(m, 1000, 10000, benchmark.Balanced, benchmark.LockFree),
-			ReadHeavy:  mapimpl.Simulate(m, 1000, 10000, benchmark.ReadHeavy, benchmark.LockFree),
-			WriteHeavy: mapimpl.Simulate(m, 1000, 10000, benchmark.WriteHeavy, benchmark.LockFree),
+			Balanced:   mapimpl.Simulate(m, 100, 10000, benchmark.Balanced, benchmark.LockFree),
+			ReadHeavy:  mapimpl.Simulate(m, 100, 10000, benchmark.ReadHeavy, benchmark.LockFree),
+			WriteHeavy: mapimpl.Simulate(m, 100, 10000, benchmark.WriteHeavy, benchmark.LockFree),
 		}
 		items = append(items, r)
 	}
@@ -36,9 +36,9 @@ func RunRWMutex(n int) []Result {
 	for i := 0; i < n; i++ {
 		m := mapimpl.NewRWMutex()
 		r := Result{
-			Balanced:   mapimpl.Simulate(m, 1000, 10000, benchmark.Balanced, benchmark.RWMut),
-			ReadHeavy:  mapimpl.Simulate(m, 1000, 10000, benchmark.ReadHeavy, benchmark.RWMut),
-			WriteHeavy: mapimpl.Simulate(m, 1000, 10000, benchmark.WriteHeavy, benchmark.RWMut),
+			Balanced:   mapimpl.Simulate(m, 100, 10000, benchmark.Balanced, benchmark.RWMut),
+			ReadHeavy:  mapimpl.Simulate(m, 100, 10000, benchmark.ReadHeavy, benchmark.RWMut),
+			WriteHeavy: mapimpl.Simulate(m, 100, 10000, benchmark.WriteHeavy, benchmark.RWMut),
 		}
 		items = append(items, r)
 	}
@@ -51,9 +51,9 @@ func RunAtomic(n int) []Result {
 	for i := 0; i < n; i++ {
 		m := mapimpl.NewAtomic()
 		r := Result{
-			Balanced:   mapimpl.Simulate(m, 1000, 10000, benchmark.Balanced, benchmark.Atomic),
-			ReadHeavy:  mapimpl.Simulate(m, 1000, 10000, benchmark.ReadHeavy, benchmark.Atomic),
-			WriteHeavy: mapimpl.Simulate(m, 1000, 10000, benchmark.WriteHeavy, benchmark.Atomic),
+			Balanced:   mapimpl.Simulate(m, 100, 10000, benchmark.Balanced, benchmark.Atomic),
+			ReadHeavy:  mapimpl.Simulate(m, 100, 10000, benchmark.ReadHeavy, benchmark.Atomic),
+			WriteHeavy: mapimpl.Simulate(m, 100, 10000, benchmark.WriteHeavy, benchmark.Atomic),
 		}
 		items = append(items, r)
 	}
@@ -66,9 +66,9 @@ func RunPartialLockfree(n int) []Result {
 	for i := 0; i < n; i++ {
 		m := mapimpl.NewPartialLockfree()
 		r := Result{
-			Balanced:   mapimpl.Simulate(m, 1000, 10000, benchmark.Balanced, benchmark.PartialLockfree),
-			ReadHeavy:  mapimpl.Simulate(m, 1000, 10000, benchmark.ReadHeavy, benchmark.PartialLockfree),
-			WriteHeavy: mapimpl.Simulate(m, 1000, 10000, benchmark.WriteHeavy, benchmark.PartialLockfree),
+			Balanced:   mapimpl.Simulate(m, 100, 10000, benchmark.Balanced, benchmark.PartialLockfree),
+			ReadHeavy:  mapimpl.Simulate(m, 100, 10000, benchmark.ReadHeavy, benchmark.PartialLockfree),
+			WriteHeavy: mapimpl.Simulate(m, 100, 10000, benchmark.WriteHeavy, benchmark.PartialLockfree),
 		}
 		items = append(items, r)
 	}
