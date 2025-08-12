@@ -15,7 +15,11 @@ type AtomicMap struct {
 }
 
 func NewAtomic() *AtomicMap {
-	return &AtomicMap{}
+	arr := new([262_144]*AtomicEntry)
+	m := AtomicMap{}
+	m.buckets.Store(arr)
+
+	return &m
 }
 
 func HashKey(k string) uint32 {
@@ -26,7 +30,7 @@ func HashKey(k string) uint32 {
 
 func (m *AtomicMap) Load(key string) (int, bool) {
 	idx := HashKey(key)
-	entryPtr := m.buckets.Load()[idx]
+	entryPtr := (*m.buckets.Load())[idx]
 
 	// Not found
 	if entryPtr == nil {
