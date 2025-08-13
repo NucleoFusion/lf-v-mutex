@@ -11,7 +11,6 @@ import (
 type Results struct {
 	LockFree        []Result `json:"lockFree"`
 	RWMutex         []Result `json:"rwMutex"`
-	AtomicMap       []Result `json:"atomicMap"`
 	PartialLockfree []Result `json:"partialLockfree"`
 }
 
@@ -37,12 +36,6 @@ func main() {
 	// RWMutex
 	f, _ = os.Create("./results/rwmutex.json")
 	data, _ = json.Marshal(&results.RWMutex)
-	f.Write(data)
-	f.Close()
-
-	// AtomicMap
-	f, _ = os.Create("./results/atomicmap.json")
-	data, _ = json.Marshal(&results.AtomicMap)
 	f.Write(data)
 	f.Close()
 

@@ -78,7 +78,7 @@ func Simulate(m Impl, numRoutines int, opsPerRoutine int, OpType benchmark.Opera
 		Scenario:   fmt.Sprintf("%d routines × %d ops", numRoutines, opsPerRoutine),
 		Throughput: throughput,
 		Latency:    avgLatency,
-		Memory:     memAfter.Alloc - memBefore.Alloc,
+		Memory:     memAfter.TotalAlloc - memBefore.TotalAlloc,
 		CPUUtil:    cpuUsage.Seconds(),
 	}
 }

@@ -26,12 +26,12 @@ def load_data(path):
 
 df_lockfree = load_data("../results/lockfree.json")
 df_rwmutex = load_data("../results/rwmutex.json")
-df_atomic = load_data("../results/atomicmap.json")
+# df_atomic = load_data("../results/atomicmap.json")
 df_partial = load_data("../results/partiallockfree.json")
 #
 # print(df_lockfree)
 
-result = pd.concat([df_atomic, df_rwmutex, df_lockfree, df_partial], ignore_index=False)
+result = pd.concat([df_rwmutex, df_lockfree, df_partial], ignore_index=False)
 
 res = result.columns.tolist()               # get list of columns
 res.insert(0, res.pop(res.index('Scenario')))  # remove 'Scenario' from current position and insert at front
