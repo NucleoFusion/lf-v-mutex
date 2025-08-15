@@ -8,6 +8,8 @@ Concurrency is a fundamental concern for high-performance systems, and through t
 
 ## Research Paper
 
+You can find the research paper [here](https://github.com/user-attachments/files/21797661/final_paper.pdf)
+
 ## Usage
 
 1. Clone the repo
